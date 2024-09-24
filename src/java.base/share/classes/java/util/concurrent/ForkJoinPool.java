@@ -1995,7 +1995,7 @@ public class ForkJoinPool extends AbstractExecutorService {
                 int n = qs.length, i = r, step = (r >>> 16) | 1;
                 for (int l = n; l > 0; --l, i += step) {  // scan queues
                     int j; WorkQueue q;
-                    if ((q = qs[j = i & (n - 1)]) != null) {
+                    if ((q = qs[j = i & (n - 1)]) != null && q.owner == null) {
                         boolean taken = false;
                         for (int pb = -1, b = q.base;;) {
                             int cap, k, nb; ForkJoinTask<?>[] a;
